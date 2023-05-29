@@ -1,6 +1,6 @@
 # Protohackers
 
-**TODO: Add description**
+Following exercises done in the TY [channel](https://www.youtube.com/channel/UCiaFBwlunX1m8FKwZQ1GOSA) 
 
 ## Installation
 
@@ -12,16 +12,11 @@ asdf global elixir 1.14.2
 asdf global erlang 25.2
 ```
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `protohackers` to your list of dependencies in `mix.exs`:
+Created with `mix new protohackers --sup`
 
-```elixir
-def deps do
-  [
-    {:protohackers, "~> 0.1.0"}
-  ]
-end
-```
+## Execution 
+
+`mix run --no-halt`
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
