@@ -10,7 +10,20 @@ defmodule Protohackers.EchoServer do
 
   @impl true
   def init(:no_state) do
-    Logger.info("Starting echo server")
-    {:ok, %__MODULE__{}}
+    listen_options = [
+      mode: :binary,
+      active: false,
+      reuseaddr: true
+    ]
+
+    case :gen_tcp.listen(5001, listen_options) do
+      {:ok, listen_socket} ->
+        Logger.info("Starting echo server on port 5001")
+        state = %__MODULE__{listen_socket: listen_socket}
+        {:ok, state}
+
+      {:error, reason} ->
+        {:stop, reason}
+    end
   end
 end
