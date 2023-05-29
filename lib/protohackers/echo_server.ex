@@ -44,7 +44,7 @@ defmodule Protohackers.EchoServer do
   ## Helpers
 
   defp handle_connection(socket) do
-    case recv_until_close(socket, _buffer = "") do
+    case recv_until_close(socket, _buffer = "", _buffered_size = 0) do
       {:ok, data} -> :gen_tcp.send(socket, data)
       {:error, reason} -> Logger.error("Failed to receive data: #{inspect(reason)}")
     end
@@ -52,10 +52,15 @@ defmodule Protohackers.EchoServer do
     :gen_tcp.close(socket)
   end
 
-  defp recv_until_close(socket, buffer) do
+  @limit _100_kb = 1024 * 100
+
+  defp recv_until_close(socket, buffer, buffered_size) do
     case :gen_tcp.recv(socket, _read_all_bytes = 0, _timeout = 10_000) do
+      {:ok, data} when buffered_size + byte_size(data) > @limit ->
+        {:error, :buffer_overflow}
+
       {:ok, data} ->
-        recv_until_close(socket, [buffer, data])
+        recv_until_close(socket, [buffer, data], buffered_size + byte_size(data))
 
       {:error, :closed} ->
         {:ok, buffer}
