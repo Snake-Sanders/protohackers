@@ -34,10 +34,10 @@ defmodule Protohackers.EchoServer do
     case :gen_tcp.accept(state.listen_socket) do
       {:ok, socket} ->
         handle_connection(socket)
-        {:noreplay, state, {:continue, :accept}}
+        {:noreply, state, {:continue, :accept}}
 
       {:error, reason} ->
-        {:stop, reason}
+        {:stop, reason, state}
     end
   end
 
