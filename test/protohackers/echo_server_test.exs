@@ -6,7 +6,7 @@ defmodule Protohackers.EchoServerTest do
 
     assert :gen_tcp.send(socket, "hello") == :ok
     assert :gen_tcp.send(socket, "bye") == :ok
-
+    # closes only the write side of the socket
     :gen_tcp.shutdown(socket, :write)
 
     assert :gen_tcp.recv(socket, 0, 5000) == {:ok, "hellobye"}

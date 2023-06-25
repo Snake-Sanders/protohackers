@@ -18,6 +18,10 @@ Created with `mix new protohackers --sup`
 
 `mix run --no-halt`
 
+- Testing Echo server
+  
+  `echo foo | nc localhost 5001`
+
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/protohackers](https://hexdocs.pm/protohackers).
